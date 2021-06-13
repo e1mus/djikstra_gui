@@ -142,31 +142,28 @@ public class GraphPanel extends JPanel implements MouseListener, MouseMotionList
                         graph.setSolved(false);
                         repaint();
                     } else {
-                        JOptionPane.showMessageDialog(null, "Og'irligi musbar bo'lishi kerak");
+                        JOptionPane.showMessageDialog(null, "Og'irligi musbat bo'lishi kerak");
                     }
                 }else {
                     numbers = new oneNumber();
                     String[] data = input.split("\\D+");
-for (int i=0 ; i< data.length; i++){
-    System.out.println(data[i]);
-}
-                    if (data.length >= 5 && (data.length - 1) / 2 > Integer.parseInt(data[data.length - 1])) {
+
+
+                    if (data.length >= 5 && (data.length - 1) / 2 >= Integer.parseInt(data[data.length - 1])) {
                         double[] a = new double[(data.length - 1) / 2];
                         for (int i = 0; i < (data.length-1)/2; i++) {
                             a[i] = Double.parseDouble(data[i]);
-                            System.out.print(a[i]+" ");
+
                         }
-                        System.out.println();
+
                         int k=0;
                         double[] b = new double[(data.length - 1) / 2];
                         for (int i = (data.length-1)/2; i < data.length-1; i++) {
-                            System.out.print(data[i]+" ");
+
                             b[k++] = Double.parseDouble(data[i]);
 
                         }
-                        System.out.println();
                         int l = Integer.parseInt(data[data.length - 1] );
-                        System.out.print(l+" ");
                         int count = b.length;
                         hoveredEdge.setWeight(Integer.parseInt(numbers.myFull(a,b,l,count)));
                         graph.setSolved(false);
