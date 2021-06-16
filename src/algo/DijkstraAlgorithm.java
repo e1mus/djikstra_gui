@@ -39,18 +39,18 @@ public class DijkstraAlgorithm {
 
     private boolean evaluate(){
         if(graph.getSource()==null){
-            message = "Source must be present in the graph";
+            message = "Grafda boshlang'ich nuqta bo'lishi kerak";
             return false;
         }
 
         if(graph.getDestination()==null){
-            message = "Destination must be present in the graph";
+            message = "Grafda oxirgi nuqta bo'lishi kerak";
             return false;
         }
 
         for(Node node : graph.getNodes()){
             if(!graph.isNodeReachable(node)){
-                message = "Graph contains unreachable nodes";
+                message = "Grafda ulanib bo'lmaydigan tugunlar mavjud";
                 return false;
             }
         }
