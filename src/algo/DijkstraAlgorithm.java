@@ -57,6 +57,40 @@ public class DijkstraAlgorithm {
 
         return true;
     }
+    public void reRun() throws IllegalStateException{
+
+        unvisited = new PriorityQueue<>(graph.getNodes().size(), new NodeComparator());
+
+        Node source = graph.getSource();
+        distances.put(source, 0);
+        visited.add(source);
+
+        for (Edge neighbor : getNeighbors(source)){
+            Node adjacent = getAdjacent(neighbor, source);
+            if(adjacent==null)
+                continue;
+
+            distances.put(adjacent, neighbor.getWeight());
+            predecessors.put(adjacent, source);
+            unvisited.add(adjacent);
+        }
+
+        while (!unvisited.isEmpty()){
+            Node current = unvisited.poll();
+
+            updateDistance(current);
+
+            unvisited.remove(current);
+            visited.add(current);
+        }
+
+        for(Node node : graph.getNodes()) {
+            node.setPath(getPath(node));
+        }
+
+        graph.setSolved(true);
+    }
+
 
     public void run() throws IllegalStateException {
         if(!safe) {

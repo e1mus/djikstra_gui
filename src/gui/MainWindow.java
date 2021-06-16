@@ -50,6 +50,8 @@ public class MainWindow extends JPanel {
         setupIcon(run, "run");
         JButton reset = new JButton();
         setupIcon(reset, "reset");
+        JButton next = new JButton();
+        setupIcon(next,"next");
         final JButton info = new JButton();
         setupIcon(info, "info");
 
@@ -57,7 +59,9 @@ public class MainWindow extends JPanel {
         buttonPanel.setBackground(DrawUtils.parseColor("#DDDDDD"));
         buttonPanel.add(reset);
         buttonPanel.add(run);
+        buttonPanel.add(next);
         buttonPanel.add(info);
+
 
         reset.addActionListener(new ActionListener() {
             @Override
@@ -81,7 +85,18 @@ public class MainWindow extends JPanel {
                         "Ctrl  + Shift + Click   :   grafning uchini o'chirish\n");
             }
         });
-
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DijkstraAlgorithm dijkstraAlgorithm = new DijkstraAlgorithm(graph);
+                try{
+                    dijkstraAlgorithm.reRun();
+                    graphPanel.setPath(dijkstraAlgorithm.getDestinationPath());
+                } catch (IllegalStateException ise){
+                    JOptionPane.showMessageDialog(null, ise.getMessage());
+                }
+            }
+        });
         run.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -101,7 +116,7 @@ public class MainWindow extends JPanel {
     private void setupIcon(JButton button, String img){
         try {
             Image icon = ImageIO.read(getClass().getResource(
-                    "/resources/" + img + ".png"));
+                    "/resources/" + img + ".png")).getScaledInstance(64,64,java.awt.Image.SCALE_SMOOTH);
             ImageIcon imageIcon = new ImageIcon(icon);
             button.setIcon(imageIcon);
             button.setBorderPainted(false);
